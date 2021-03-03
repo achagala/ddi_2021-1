@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : Interactable
 {
 
     public CharacterController controller;
@@ -18,11 +18,13 @@ public class PlayerMovement : MonoBehaviour
     Vector3 velocity;
 
     bool isGrounded;
-    
 
     // Update is called once per frame
-    void Update()
+    public override void Update()
     {
+
+        base.Update();
+
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         if (isGrounded && velocity.y < 0)
@@ -45,5 +47,10 @@ public class PlayerMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    public override void Interact()
+    {
+        
     }
 }
