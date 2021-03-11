@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using UnityEngine.EventSystems;
 using UnityEngine;
 
-public class PlayerMovement : Interactable
+public class PlayerMovement : MonoBehaviour
 {
 
     public CharacterController controller;
@@ -20,11 +19,13 @@ public class PlayerMovement : Interactable
     bool isGrounded;
 
     // Update is called once per frame
-    public override void Update()
+    public void Update()
     {
-
-        base.Update();
-
+        if(EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
+        
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         if (isGrounded && velocity.y < 0)
@@ -47,10 +48,6 @@ public class PlayerMovement : Interactable
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
-    }
 
-    public override void Interact()
-    {
-        
     }
 }

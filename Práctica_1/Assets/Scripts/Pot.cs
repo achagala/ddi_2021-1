@@ -2,16 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Interactable : MonoBehaviour
+public class Pot : MonoBehaviour
 {
-
+    public AudioClip SoundToPlay;
+    public AudioClip SoundToPlay2;
+    public float Volume;
+    AudioSource audio;
     public bool flagZone = false;
 
-    public virtual void Update()
+    // Start is called before the first frame update
+    void Start()
     {
-        if(flagZone == true && Input.GetButtonDown("PickUp"))
+        audio = GetComponent<AudioSource>();
+    }
+
+    public void Update()
+    {
+        if(flagZone == true && Input.GetMouseButtonDown(0))
         {
-            Interact();
+            audio.PlayOneShot(SoundToPlay2, Volume);
         }
     }
 
@@ -20,7 +29,7 @@ public class Interactable : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            flagZone = true;
+            audio.PlayOneShot(SoundToPlay, Volume);
         }
     }
 
@@ -30,12 +39,7 @@ public class Interactable : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             flagZone = false;
+            audio.Stop();
         }
-    }
-
-    // Agrega un sonido de golpe a la caldera si es que hay un click
-    public virtual void Interact()
-    {
-        
     }
 }
