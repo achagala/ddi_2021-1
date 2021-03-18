@@ -1,10 +1,14 @@
-﻿using UnityEngine.EventSystems;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.EventSystems;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
 
     public CharacterController controller;
+
+    public Joystick joystick;
 
     public float speed = 12f;
     public float gravity = -9.81f;
@@ -33,8 +37,10 @@ public class PlayerMovement : MonoBehaviour
             velocity.y = -2f;
         }
 
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
+        //float x = Input.GetAxis("Horizontal");
+        float x = joystick.Horizontal;
+        //float z = Input.GetAxis("Vertical");
+        float z = joystick.Vertical;
 
         Vector3 move = transform.right * x + transform.forward * z;
 
