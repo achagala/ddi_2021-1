@@ -7,9 +7,10 @@ public class Interactable : MonoBehaviour
 
     public bool flagZone = false;
 
-    public virtual void Update()
+    public void Update()
     {
-        if(flagZone == true && Input.GetButtonDown("PickUp"))
+        //if(flagZone == true && Input.GetButtonDown("PickUp"))
+        if(flagZone == true)
         {
             Interact();
         }
@@ -36,6 +37,6 @@ public class Interactable : MonoBehaviour
     // Agrega un sonido de golpe a la caldera si es que hay un click
     public virtual void Interact()
     {
-        
+
     }
 }
