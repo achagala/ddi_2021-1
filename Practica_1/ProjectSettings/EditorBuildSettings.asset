@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Prac_6.unity
     guid: 392bc50710e44ed41a3236daffb3e0db
   m_configObjects: {}
