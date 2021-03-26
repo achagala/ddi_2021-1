@@ -10,10 +10,16 @@ public class Interactable : MonoBehaviour
     public void Update()
     {
         //if(flagZone == true && Input.GetButtonDown("PickUp"))
-        if(flagZone == true)
+        /*if(flagZone == true)
         {
             Interact();
-        }
+        }*/
+    }
+
+    public void OnMouseDown()
+    {
+        Interact();
+        Debug.Log("Click");
     }
 
     // Cuando se acerca a la caldera se escucha el fuego
