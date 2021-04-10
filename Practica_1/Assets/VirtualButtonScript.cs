@@ -5,32 +5,39 @@ using Vuforia;
 
 public class VirtualButtonScript : MonoBehaviour, IVirtualButtonEventHandler
 {
-    public GameObject pikachuButton;
-    public Animator pikachuAnimation;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        pikachuButton = GameObject.Find("PikachuButton");
-        pikachuButton.GetComponent<VirtualButtonBehaviour>().RegisterEventHandler(this);
-        pikachuAnimation.GetComponent<Animator>();
-    }
+    //public Interactable interactableObject;
+    public Animator animation; 
+    private VirtualButtonBehaviour virtualButton;
 
     public void OnButtonPressed(VirtualButtonBehaviour vb)
     {
-        pikachuAnimation.Play("PikachuAnimation");
-        Debug.Log("Btn pressed");
+        //interactableObject.Interact();
+        animation.Play("Animation");
+        Debug.Log("Se presionó");
     }
 
     public void OnButtonReleased(VirtualButtonBehaviour vb)
     {
-        pikachuAnimation.Play("None");
-        Debug.Log("Btn released");
+        animation.Play("None");
+        Debug.Log("Se levantó");
     }
 
-    // Update is called once per frame
-    void Update()
+    /// <summary>
+    /// Awake is called when the script instance is being loaded.
+    /// </summary>
+    void Awake()
     {
-        
+        virtualButton = GetComponent<VirtualButtonBehaviour>();
+        animation.GetComponent<Animator>();
+    }
+
+    void Start()
+    {
+        if (virtualButton != null)
+        {
+            virtualButton.RegisterEventHandler(this);
+        }
     }
 }
+
+
