@@ -1,21 +1,39 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChangeColor : MonoBehaviour
+public class ChangeColor : Interactable
 {
-    public void Red()
+    public Material inactiveMaterial;
+
+    public Material gazedAtMaterial;
+
+    private Renderer myRenderer;
+
+    public GameObject Object;
+
+    public void SetGazedAtColor(bool isGazedAt)
     {
-        GetComponent<Renderer>().material.color = Color.red;
+        if(inactiveMaterial != null && gazedAtMaterial != null)
+        {
+            myRenderer.material = isGazedAt ? gazedAtMaterial : inactiveMaterial;
+            return;
+        }
+    }
+    
+    private void Start() {
+        myRenderer = GetComponent<Renderer>();
+        SetGazedAt(false);
     }
 
-    public void Blue()
+    public override void Interact()
     {
-        GetComponent<Renderer>().material.color = Color.blue;
+        myRenderer.material.color = Color.yellow;
+        Debug.Log("Selected");
     }
 
-    public void Gold()
+    public override void Update()
     {
-        GetComponent<Renderer>().material.color = Color.yellow;
+        base.Update();
     }
 }

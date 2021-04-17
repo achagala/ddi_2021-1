@@ -7,13 +7,36 @@ public class Interactable : MonoBehaviour
 
     public bool flagZone = false;
 
-    public void Update()
+    public bool gazedAt = false;
+
+    public float gazeInteractTime = 1.5f;
+    public float gazeTimer = 0;
+
+    public virtual void Update()
     {
         //if(flagZone == true && Input.GetButtonDown("PickUp"))
         /*if(flagZone == true)
         {
             Interact();
         }*/
+        if (gazedAt)
+        {
+            if ((gazeTimer += Time.deltaTime) >= gazeInteractTime)
+            {
+                Interact();
+                gazedAt = false;
+                gazeTimer = 0f;
+            }
+        }
+    }
+
+    public void SetGazedAt(bool gazedAt)
+    {
+        this.gazedAt = gazedAt;
+        if (!gazedAt)
+        {
+            gazeTimer = 0f;
+        }
     }
 
     public void OnMouseDown()
@@ -40,7 +63,6 @@ public class Interactable : MonoBehaviour
         }
     }
 
-    // Agrega un sonido de golpe a la caldera si es que hay un click
     public virtual void Interact()
     {
 
