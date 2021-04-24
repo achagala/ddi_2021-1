@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using IBM.Watsson.Examples;
 
 public class Interactable : MonoBehaviour
 {
@@ -12,6 +13,16 @@ public class Interactable : MonoBehaviour
     public float gazeInteractTime = 1.5f;
     public float gazeTimer = 0;
 
+    string voiceCommand = "animacion";
+
+    string voiceCommandStop = "parar";
+
+    void Start()
+    {
+        ExampleStreaming commandProcessor = GameObject.FindObjectOfType<ExampleStreaming>();
+        commandProcessor.onVoiceCommandRecognized += OnVoiceCommandRecognized;
+    }
+
     public virtual void Update()
     {
         //if(flagZone == true && Input.GetButtonDown("PickUp"))
@@ -19,6 +30,7 @@ public class Interactable : MonoBehaviour
         {
             Interact();
         }*/
+        
         if (gazedAt)
         {
             if ((gazeTimer += Time.deltaTime) >= gazeInteractTime)
@@ -28,6 +40,18 @@ public class Interactable : MonoBehaviour
                 gazeTimer = 0f;
             }
         }
+    }
+
+    public void OnVoiceCommandRecognized(string command)
+    {
+
+        Debug.Log("Command: " + command + "\nVoice command: " + voiceCommand);
+        
+        if (command.ToLower() == voiceCommand.ToLower() && gazedAt)
+        {
+            Interact();
+        }
+
     }
 
     public void SetGazedAt(bool gazedAt)
